@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-top: 10px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dfdfe6;
+        }
+
+        .highlight {
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Consulta de Datos</h1>
+        <form method="POST" action="/">
+            <label for="entrada">Ingresa el código de búsqueda:</label><br>
+            <input type="text" id="entrada" name="entrada" required><br>
+            <label for="fecha_inicio">Desde:</label><br>
+            <input type="date" id="fecha_inicio" name="fecha_inicio"><br>
+            <label for="fecha_fin">Hasta:</label><br>
+            <input type="date" id="fecha_fin" name="fecha_fin"><br>
+            <button type="submit">Buscar</button>
+        </form>
+
+        {% if codigo_ingresado %}
+        <div class="highlight">
+            Código ingresado: {{ codigo_ingresado }}
+        </div>
+        {% endif %}
+
+        {% if rows %}
+        <h2>Resultados:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>SOLICITANTE</th>
+                    <th>EQUIPO</th>
+                    <th>TIPO</th>
+                    <th>SOLICITUD</th>
+                    <th>FECHA</th>
+                    <th>CodProv</th>
+                    <th>NroUnico</th>
+                    <th>CodUsua</th>
+                    <th>NOTA</th>
+                    <th>CODITEM</th>
+                    <th>DESCRIP1</th>
+                    <th>CANTIDAD</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <td>{{ row.SOLICITANTE }}</td>
+                    <td>{{ row.EQUIPO }}</td>
+                    <td>{{ row.TIPO }}</td>
+                    <td>{{ row.SOLICITUD }}</td>
+                    <td>{{ row.FECHA }}</td>
+                    <td>{{ row.CodProv }}</td>
+                    <td>{{ row.NroUnico }}</td>
+                    <td>{{ row.CodUsua }}</td>
+                    <td>{{ row.NOTA }}</td>
+                    <td>{{ row.CODITEM }}</td>
+                    <td>{{ row.DESCRIP1 }}</td>
+                    <td>{{ row.CANTIDAD }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p></p>
+        {% endif %}
+    </div>
+</body>
+</html>
